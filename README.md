@@ -1,4 +1,4 @@
-# bushpigs
+# seqAfrica_bushpigs
 
 Git repository for the analysis for the African bush pig project at the University of Copenhagen.
 
