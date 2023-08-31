@@ -1,0 +1,452 @@
+outmain: "pig_hiDepth"
+scriptsdir: "scripts"
+mu: 1.49e-8
+g: 6
+bcf: "Warthog_joint_sites_nomultiallelics_noindels_10dp_2het.bcf.gz"
+
+outgroups:
+ - DPigNig00140
+ - CWarUga00044
+ - DWarxxx00125
+
+do_tto:
+ xxxxEth00164-BPigMad00037:
+  - xxxxEth00164
+  - BPigMad00037
+
+close_outgroup:
+ - CWarUga00044
+
+do_tt:
+ xxxxEth00164-BPigMad00037:
+  - xxxxEth00164
+  - BPigMad00037
+ xxxxEth00164-BPigTan00039:
+  - xxxxEth00164
+  - BPigTan00039
+ xxxxEth00164-RRivCam00181:
+  - xxxxEth00164
+  - RRivCam00181
+ xxxxEth00164-RRivEqu00169:
+  - xxxxEth00164
+  - RRivEqu00169
+ xxxxEth00164-RRivGab00178:
+  - xxxxEth00164
+  - RRivGab00178
+ xxxxEth00164-BPigGha00038:
+  - xxxxEth00164
+  - BPigGha00038
+ xxxxEth00164-RRivTog00186:
+  - xxxxEth00164
+  - RRivTog00186
+ xxxxEth00164-BPigUga00001:
+  - xxxxEth00164
+  - BPigUga00001
+ xxxxEth00164-BPigUga00002:
+  - xxxxEth00164
+  - BPigUga00002
+ xxxxEth00164-BPigUga00003:
+  - xxxxEth00164
+  - BPigUga00003
+ xxxxEth00164-GForUga00157:
+  - xxxxEth00164
+  - GForUga00157
+ xxxxEth00164-RRivEquMerg1:
+  - xxxxEth00164
+  - RRivEquMerg1
+ xxxxEth00164-BPigRSA49002t2:
+  - xxxxEth00164
+  - BPigRSA49002t2
+ xxxxEth00164-BPigZim49001t2:
+  - xxxxEth00164
+  - BPigZim49001t2
+ xxxxEth00164-RRivNIG46518:
+  - xxxxEth00164
+  - RRivNIG46518
+ xxxxEth00164-RRivNIG46529:
+  - xxxxEth00164
+  - RRivNIG46529
+ BPigMad00037-BPigTan00039:
+  - BPigMad00037
+  - BPigTan00039
+ BPigMad00037-BPigEthMerg1:
+  - BPigMad00037
+  - BPigEthMerg1
+ BPigMad00037-RRivCam00181:
+  - BPigMad00037
+  - RRivCam00181
+ BPigMad00037-RRivEqu00169:
+  - BPigMad00037
+  - RRivEqu00169
+ BPigMad00037-RRivGab00178:
+  - BPigMad00037
+  - RRivGab00178
+ BPigMad00037-BPigGha00038:
+  - BPigMad00037
+  - BPigGha00038
+ BPigMad00037-RRivTog00186:
+  - BPigMad00037
+  - RRivTog00186
+ BPigMad00037-BPigUga00001:
+  - BPigMad00037
+  - BPigUga00001
+ BPigMad00037-BPigUga00002:
+  - BPigMad00037
+  - BPigUga00002
+ BPigMad00037-BPigUga00003:
+  - BPigMad00037
+  - BPigUga00003
+ BPigMad00037-GForUga00157:
+  - BPigMad00037
+  - GForUga00157
+ BPigMad00037-RRivEquMerg1:
+  - BPigMad00037
+  - RRivEquMerg1
+ BPigMad00037-BPigRSA49002t2:
+  - BPigMad00037
+  - BPigRSA49002t2
+ BPigMad00037-BPigZim49001t2:
+  - BPigMad00037
+  - BPigZim49001t2
+ BPigMad00037-RRivNIG46518:
+  - BPigMad00037
+  - RRivNIG46518
+ BPigMad00037-RRivNIG46529:
+  - BPigMad00037
+  - RRivNIG46529
+ BPigTan00039-BPigEthMerg1:
+  - BPigTan00039
+  - BPigEthMerg1
+ BPigTan00039-RRivCam00181:
+  - BPigTan00039
+  - RRivCam00181
+ BPigTan00039-RRivEqu00169:
+  - BPigTan00039
+  - RRivEqu00169
+ BPigTan00039-RRivGab00178:
+  - BPigTan00039
+  - RRivGab00178
+ BPigTan00039-BPigGha00038:
+  - BPigTan00039
+  - BPigGha00038
+ BPigTan00039-RRivTog00186:
+  - BPigTan00039
+  - RRivTog00186
+ BPigTan00039-BPigUga00001:
+  - BPigTan00039
+  - BPigUga00001
+ BPigTan00039-BPigUga00002:
+  - BPigTan00039
+  - BPigUga00002
+ BPigTan00039-BPigUga00003:
+  - BPigTan00039
+  - BPigUga00003
+ BPigTan00039-GForUga00157:
+  - BPigTan00039
+  - GForUga00157
+ BPigTan00039-RRivEquMerg1:
+  - BPigTan00039
+  - RRivEquMerg1
+ BPigTan00039-BPigRSA49002t2:
+  - BPigTan00039
+  - BPigRSA49002t2
+ BPigTan00039-BPigZim49001t2:
+  - BPigTan00039
+  - BPigZim49001t2
+ BPigTan00039-RRivNIG46518:
+  - BPigTan00039
+  - RRivNIG46518
+ BPigTan00039-RRivNIG46529:
+  - BPigTan00039
+  - RRivNIG46529
+ BPigEthMerg1-RRivCam00181:
+  - BPigEthMerg1
+  - RRivCam00181
+ BPigEthMerg1-RRivEqu00169:
+  - BPigEthMerg1
+  - RRivEqu00169
+ BPigEthMerg1-RRivGab00178:
+  - BPigEthMerg1
+  - RRivGab00178
+ BPigEthMerg1-BPigGha00038:
+  - BPigEthMerg1
+  - BPigGha00038
+ BPigEthMerg1-RRivTog00186:
+  - BPigEthMerg1
+  - RRivTog00186
+ BPigEthMerg1-BPigUga00001:
+  - BPigEthMerg1
+  - BPigUga00001
+ BPigEthMerg1-BPigUga00002:
+  - BPigEthMerg1
+  - BPigUga00002
+ BPigEthMerg1-BPigUga00003:
+  - BPigEthMerg1
+  - BPigUga00003
+ BPigEthMerg1-GForUga00157:
+  - BPigEthMerg1
+  - GForUga00157
+ BPigEthMerg1-RRivEquMerg1:
+  - BPigEthMerg1
+  - RRivEquMerg1
+ BPigEthMerg1-BPigRSA49002t2:
+  - BPigEthMerg1
+  - BPigRSA49002t2
+ BPigEthMerg1-BPigZim49001t2:
+  - BPigEthMerg1
+  - BPigZim49001t2
+ BPigEthMerg1-RRivNIG46518:
+  - BPigEthMerg1
+  - RRivNIG46518
+ BPigEthMerg1-RRivNIG46529:
+  - BPigEthMerg1
+  - RRivNIG46529
+ RRivCam00181-RRivEqu00169:
+  - RRivCam00181
+  - RRivEqu00169
+ RRivCam00181-RRivGab00178:
+  - RRivCam00181
+  - RRivGab00178
+ RRivCam00181-BPigGha00038:
+  - RRivCam00181
+  - BPigGha00038
+ RRivCam00181-RRivTog00186:
+  - RRivCam00181
+  - RRivTog00186
+ RRivCam00181-BPigUga00001:
+  - RRivCam00181
+  - BPigUga00001
+ RRivCam00181-BPigUga00002:
+  - RRivCam00181
+  - BPigUga00002
+ RRivCam00181-BPigUga00003:
+  - RRivCam00181
+  - BPigUga00003
+ RRivCam00181-GForUga00157:
+  - RRivCam00181
+  - GForUga00157
+ RRivCam00181-RRivEquMerg1:
+  - RRivCam00181
+  - RRivEquMerg1
+ RRivCam00181-BPigRSA49002t2:
+  - RRivCam00181
+  - BPigRSA49002t2
+ RRivCam00181-BPigZim49001t2:
+  - RRivCam00181
+  - BPigZim49001t2
+ RRivCam00181-RRivNIG46518:
+  - RRivCam00181
+  - RRivNIG46518
+ RRivCam00181-RRivNIG46529:
+  - RRivCam00181
+  - RRivNIG46529
+ RRivEqu00169-RRivGab00178:
+  - RRivEqu00169
+  - RRivGab00178
+ RRivEqu00169-BPigGha00038:
+  - RRivEqu00169
+  - BPigGha00038
+ RRivEqu00169-RRivTog00186:
+  - RRivEqu00169
+  - RRivTog00186
+ RRivEqu00169-BPigUga00001:
+  - RRivEqu00169
+  - BPigUga00001
+ RRivEqu00169-BPigUga00002:
+  - RRivEqu00169
+  - BPigUga00002
+ RRivEqu00169-BPigUga00003:
+  - RRivEqu00169
+  - BPigUga00003
+ RRivEqu00169-GForUga00157:
+  - RRivEqu00169
+  - GForUga00157
+ RRivEqu00169-BPigRSA49002t2:
+  - RRivEqu00169
+  - BPigRSA49002t2
+ RRivEqu00169-BPigZim49001t2:
+  - RRivEqu00169
+  - BPigZim49001t2
+ RRivEqu00169-RRivNIG46518:
+  - RRivEqu00169
+  - RRivNIG46518
+ RRivEqu00169-RRivNIG46529:
+  - RRivEqu00169
+  - RRivNIG46529
+ RRivGab00178-BPigGha00038:
+  - RRivGab00178
+  - BPigGha00038
+ RRivGab00178-RRivTog00186:
+  - RRivGab00178
+  - RRivTog00186
+ RRivGab00178-BPigUga00001:
+  - RRivGab00178
+  - BPigUga00001
+ RRivGab00178-BPigUga00002:
+  - RRivGab00178
+  - BPigUga00002
+ RRivGab00178-BPigUga00003:
+  - RRivGab00178
+  - BPigUga00003
+ RRivGab00178-GForUga00157:
+  - RRivGab00178
+  - GForUga00157
+ RRivGab00178-RRivEquMerg1:
+  - RRivGab00178
+  - RRivEquMerg1
+ RRivGab00178-BPigRSA49002t2:
+  - RRivGab00178
+  - BPigRSA49002t2
+ RRivGab00178-BPigZim49001t2:
+  - RRivGab00178
+  - BPigZim49001t2
+ RRivGab00178-RRivNIG46518:
+  - RRivGab00178
+  - RRivNIG46518
+ RRivGab00178-RRivNIG46529:
+  - RRivGab00178
+  - RRivNIG46529
+ BPigGha00038-RRivTog00186:
+  - BPigGha00038
+  - RRivTog00186
+ BPigGha00038-BPigUga00001:
+  - BPigGha00038
+  - BPigUga00001
+ BPigGha00038-BPigUga00002:
+  - BPigGha00038
+  - BPigUga00002
+ BPigGha00038-BPigUga00003:
+  - BPigGha00038
+  - BPigUga00003
+ BPigGha00038-GForUga00157:
+  - BPigGha00038
+  - GForUga00157
+ BPigGha00038-RRivEquMerg1:
+  - BPigGha00038
+  - RRivEquMerg1
+ BPigGha00038-BPigRSA49002t2:
+  - BPigGha00038
+  - BPigRSA49002t2
+ BPigGha00038-BPigZim49001t2:
+  - BPigGha00038
+  - BPigZim49001t2
+ BPigGha00038-RRivNIG46518:
+  - BPigGha00038
+  - RRivNIG46518
+ BPigGha00038-RRivNIG46529:
+  - BPigGha00038
+  - RRivNIG46529
+ RRivTog00186-BPigUga00001:
+  - RRivTog00186
+  - BPigUga00001
+ RRivTog00186-BPigUga00002:
+  - RRivTog00186
+  - BPigUga00002
+ RRivTog00186-BPigUga00003:
+  - RRivTog00186
+  - BPigUga00003
+ RRivTog00186-GForUga00157:
+  - RRivTog00186
+  - GForUga00157
+ RRivTog00186-RRivEquMerg1:
+  - RRivTog00186
+  - RRivEquMerg1
+ RRivTog00186-BPigRSA49002t2:
+  - RRivTog00186
+  - BPigRSA49002t2
+ RRivTog00186-BPigZim49001t2:
+  - RRivTog00186
+  - BPigZim49001t2
+ RRivTog00186-RRivNIG46518:
+  - RRivTog00186
+  - RRivNIG46518
+ RRivTog00186-RRivNIG46529:
+  - RRivTog00186
+  - RRivNIG46529
+ BPigUga00001-RRivEquMerg1:
+  - BPigUga00001
+  - RRivEquMerg1
+ BPigUga00001-BPigRSA49002t2:
+  - BPigUga00001
+  - BPigRSA49002t2
+ BPigUga00001-BPigZim49001t2:
+  - BPigUga00001
+  - BPigZim49001t2
+ BPigUga00001-RRivNIG46518:
+  - BPigUga00001
+  - RRivNIG46518
+ BPigUga00001-RRivNIG46529:
+  - BPigUga00001
+  - RRivNIG46529
+ BPigUga00002-RRivEquMerg1:
+  - BPigUga00002
+  - RRivEquMerg1
+ BPigUga00002-BPigRSA49002t2:
+  - BPigUga00002
+  - BPigRSA49002t2
+ BPigUga00002-BPigZim49001t2:
+  - BPigUga00002
+  - BPigZim49001t2
+ BPigUga00002-RRivNIG46518:
+  - BPigUga00002
+  - RRivNIG46518
+ BPigUga00002-RRivNIG46529:
+  - BPigUga00002
+  - RRivNIG46529
+ BPigUga00003-RRivEquMerg1:
+  - BPigUga00003
+  - RRivEquMerg1
+ BPigUga00003-BPigRSA49002t2:
+  - BPigUga00003
+  - BPigRSA49002t2
+ BPigUga00003-BPigZim49001t2:
+  - BPigUga00003
+  - BPigZim49001t2
+ BPigUga00003-RRivNIG46518:
+  - BPigUga00003
+  - RRivNIG46518
+ BPigUga00003-RRivNIG46529:
+  - BPigUga00003
+  - RRivNIG46529
+ GForUga00157-RRivEquMerg1:
+  - GForUga00157
+  - RRivEquMerg1
+ GForUga00157-BPigRSA49002t2:
+  - GForUga00157
+  - BPigRSA49002t2
+ GForUga00157-BPigZim49001t2:
+  - GForUga00157
+  - BPigZim49001t2
+ GForUga00157-RRivNIG46518:
+  - GForUga00157
+  - RRivNIG46518
+ GForUga00157-RRivNIG46529:
+  - GForUga00157
+  - RRivNIG46529
+ RRivEquMerg1-BPigRSA49002t2:
+  - RRivEquMerg1
+  - BPigRSA49002t2
+ RRivEquMerg1-BPigZim49001t2:
+  - RRivEquMerg1
+  - BPigZim49001t2
+ RRivEquMerg1-RRivNIG46518:
+  - RRivEquMerg1
+  - RRivNIG46518
+ RRivEquMerg1-RRivNIG46529:
+  - RRivEquMerg1
+  - RRivNIG46529
+ BPigRSA49002t2-BPigZim49001t2:
+  - BPigRSA49002t2
+  - BPigZim49001t2
+ BPigRSA49002t2-RRivNIG46518:
+  - BPigRSA49002t2
+  - RRivNIG46518
+ BPigRSA49002t2-RRivNIG46529:
+  - BPigRSA49002t2
+  - RRivNIG46529
+ BPigZim49001t2-RRivNIG46518:
+  - BPigZim49001t2
+  - RRivNIG46518
+ BPigZim49001t2-RRivNIG46529:
+  - BPigZim49001t2
+  - RRivNIG46529
