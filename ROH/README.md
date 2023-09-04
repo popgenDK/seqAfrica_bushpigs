@@ -21,12 +21,13 @@ The pipelien for ROH analysis of individuals in African bush pig project.
 
 ## Steps
 
-Before you run the pipeline, please preprocess your SNP data, like quality control or data filtering. Then please generate the PLINK (ver 1.9.0) files (`--make-bed`). The PLINK files should be `/path/to/preprocessed/bfile.bed` (and other suffixes).
+Before you run the pipeline, please preprocess your SNP data, like quality control or data filtering. Then please generate the PLINK files (ver 1.9.0, with `--make-bed`), like `/path/to/preprocessed/bfile.bed` (and other suffixes).
 
 Then please select the individuals in which you're interested. It should be in `.fam` (PLINK) format, like `/path/to/target/individual/list/xxx.fam`
 
 Then please run as following steps:
-**NOTE: please check the plink parameters in `.sh` scripts, or modify plotting parameters in R scripts if they don't fit your data well.**
+
+**(NOTE: please check the plink parameters in `.sh` scripts, or modify plotting parameters in R scripts if they don't fit your data well.)**
 
 ```bash
 # step 01: filter out invalid sites
