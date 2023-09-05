@@ -1,4 +1,7 @@
 #!/usr/bin/env Rscript
+####### ROH version 0.1.1 ####### 
+# Fill adjacent ROH region with different color.
+################################
 ####### ROH version 0.1 ####### 
 # This code was made for visualzing ROH
 # It requries plink file as input #
