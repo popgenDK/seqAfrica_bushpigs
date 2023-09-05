@@ -21,11 +21,13 @@ The pipelien for ROH analysis of individuals in African bush pig project.
 
 ## Steps
 
-Before you run the pipeline, please preprocess your SNP data, like quality control or data filtering. Then please generate the PLINK files (ver 1.9.0, with `--make-bed`), like `/path/to/preprocessed/bfile.bed` (and other suffixes).
+Before running the pipeline, you may want to preprocess your SNP data, like quality control or data filtering.
 
-Then please select the individuals in which you're interested. It should be in `.fam` (PLINK) format, like `/path/to/target/individual/list/xxx.fam`
+Please generate the input files for this pipeline using PLINK (ver 1.9.0, with `--make-bed`). Output should be files like `/path/to/preprocessed/bfile.bed` (and other suffixes).
 
-Then please run as following steps:
+Please provide a list of individuals which you're interested in. It should be in `.fam` (PLINK) format, like `/path/to/target/individual/list/xxx.fam`. Make sure the **FID and IID should be the same**.
+
+Then please run ROH by following steps:
 
 **(NOTE: please check the plink parameters in `.sh` scripts, or modify plotting parameters in R scripts if they don't fit your data well.)**
 
@@ -41,11 +43,11 @@ bash 02.individual_plink.sh /path/to/target/individual/list/xxx.fam
 
 ```bash
 # step 03: draw ROH region plot across each chromosomes of each individual
-sh 03.ROH_plots.sh
+bash 03.ROH_plots.sh
 ```
 
 ```bash
 # step 04: draw ROH proportion plot of all individuals
-sh 04.ROH_proportion.sh
+bash 04.ROH_proportion.sh
 ```
 
