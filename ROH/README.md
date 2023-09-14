@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The pipelien for ROH analysis of individuals in African bush pig project.
+The pipeline for ROH analysis of individuals in African bush pig project.
 
 ## Requirement
 
