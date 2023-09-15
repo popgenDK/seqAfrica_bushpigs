@@ -1,8 +1,8 @@
 #!/bin/bash
 
-file=$1 # Input beagle file
-nfile=$2 # file name 
-num=$3  # Maximum number of iterations
+file=$1 #input beagle file
+nfile=$2 #file name 
+num=$3  #maximum number of iterations
 P=$4 #number of threads/cores used
 K=$5 #number of populations
 NGSA=$6 - #NGSadmix path
