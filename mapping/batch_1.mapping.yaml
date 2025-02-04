@@ -1,0 +1,967 @@
+# -*- mode: Yaml; -*-
+# Default options.
+# Can also be specific for a set of samples, libraries, and lanes,
+# by including the "Options" hierarchy at the same level as those
+# samples, libraries, or lanes below.
+Options:
+  # Sequencing platform, see SAM/BAM reference for valid values
+  Platform: Illumina
+  # Quality offset for Phred scores, either 33 (Sanger/Illumina 1.8+)
+  # or 64 (Illumina 1.3+ / 1.5+). For Bowtie2 it is also possible to
+  # specify 'Solexa', to handle reads on the Solexa scale. This is
+  # used during adapter-trimming and sequence alignment
+  QualityOffset: 33
+
+  # Settings for trimming of reads, see AdapterRemoval man-page
+  AdapterRemoval:
+     # Set and uncomment to override defaults adapter sequences
+     --adapter1: TODO
+     --adapter2: TODO
+     # Some BAM pipeline defaults differ from AR defaults;
+     # To override, change these value(s):
+     --mm: 3
+     --minlength: 1
+     # Extra features enabled by default; change 'yes' to 'no' to disable
+     --collapse:
+     --collapse-conservatively:
+
+  # Settings for aligners supported by the pipeline
+  Aligners:
+    # Choice of aligner software to use, either "BWA" or "Bowtie2"
+    Program: BWA
+
+    # Settings for mappings performed using BWA
+    BWA:
+      # One of "backtrack", "bwasw", or "mem"; see the BWA documentation
+      # for a description of each algorithm (defaults to 'backtrack')
+      Algorithm: mem
+      # Filter aligned reads with a mapping quality (Phred) below this value
+      MinQuality: 0
+      # Filter reads that did not map to the reference sequence
+      FilterUnmappedReads: no
+      # May be disabled ("no") for aDNA alignments with the 'aln' algorithm.
+      # Post-mortem damage localizes to the seed region, which BWA expects to
+      # have few errors (sets "-l"). See http://pmid.us/22574660
+      UseSeed: yes
+      # Additional command-line options may be specified below. For 'backtrack' these
+      # are applied to the "bwa aln". See Bowtie2 for more examples.
+#      -n: 0.04
+
+  # Command-line options for mapDamage; use long-form options(--length not -l):
+  mapDamage:
+    # By default, the pipeline will downsample the input to 100k hits
+    # when running mapDamage; remove to use all hits
+    --downsample: 100000
+
+  # Set to 'yes' exclude a type of trimmed reads from alignment / analysis;
+  # possible read-types reflect the output of AdapterRemoval
+  ExcludeReads:
+    # Exclude single-end reads (yes / no)?
+    Single: no
+    # Exclude non-collapsed paired-end reads (yes / no)?
+    Paired: no
+    # Exclude paired-end reads for which the mate was discarded (yes / no)?
+    Singleton: no
+    # Exclude overlapping paired-ended reads collapsed into a single sequence
+    # by AdapterRemoval (yes / no)?
+    Collapsed: no
+    # Like 'Collapsed', but only for collapsed reads truncated due to the
+    # presence of ambiguous or low quality bases at read termini (yes / no).
+    CollapsedTruncated: no
+
+  # Optional steps to perform during processing.
+  Features:
+    # If set to 'filter', PCR duplicates are removed from the output files; if set to
+    # 'mark', PCR duplicates are flagged with bit 0x400, and not removed from the
+    # output files; if set to 'no', the reads are assumed to not have been amplified.
+    PCRDuplicates: mark
+    # Set to 'no' to disable mapDamage; set to 'plots' to build basic mapDamage plots;
+    # set to 'model' to build plots and post-mortem damage models; and set to 'rescale'
+    # to build plots, models, and BAMs with rescaled quality scores. All analyses are
+    # carried out per library.
+    mapDamage: no
+    # Generate coverage information for the final BAM and for each 'RegionsOfInterest'
+    # specified in 'Prefixes' (yes / no).
+    Coverage: no
+    # Generate histograms of number of sites with a given read-depth, from 0 to 200,
+    # for each BAM and for each 'RegionsOfInterest' specified in 'Prefixes' (yes / no).
+    Depths: no
+    # Generate summary table for each target (yes / no)
+    Summary: no
+
+
+Genomes:
+  SusScrofa:
+    Path: genomes/SusScrofa11_1.fasta
+  Warthog:
+    Path: genomes/Warthog.fasta
+
+
+
+InhouseBGI:
+  Options:
+    AdapterRemoval:
+       --adapter1: AAGTCGGAGGCCAAGCGGTCTTAGGAAGACAA
+       --adapter2: AAGTCGGATCGTAGCCATGTCGTTCTGTGAGCCAAGGAGTTG
+
+  "BPigUga00001":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/68/FP100002593BL_L01_29_{Pair}.fq.gz"
+
+  "BPigUga00002":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/70/FP100002592BL_L01_37_{Pair}.fq.gz"
+
+  "BPigUga00003":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/71/FP100002596BL_L01_2_{Pair}.fq.gz"
+
+  "BPigUga00004":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/72/FP100002596BL_L01_1_{Pair}.fq.gz"
+
+  "BPigUga00005":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/91/FP100002592BL_L01_35_{Pair}.fq.gz"
+
+  "CWarUga00044":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/1768/FP100002593BL_L01_125_{Pair}.fq.gz"
+
+  "CWarUga00045":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/1769/FP100002593BL_L01_123_{Pair}.fq.gz"
+
+  "CWarUga00046":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/1770/FP100002593BL_L01_28_{Pair}.fq.gz"
+
+  "CWarUga00047":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/231/FP100002593BL_L01_104_{Pair}.fq.gz"
+
+  "CWarUga00048":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/232/FP100002593BL_L01_117_{Pair}.fq.gz"
+
+  "CWarUga00049":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/109/FP100002590BL_L01_53_{Pair}.fq.gz"
+
+  "CWarUga00050":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/1332/FP100002592BL_L01_39_{Pair}.fq.gz"
+
+  "CWarUga00051":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/1334/FP100002596BL_L01_43_{Pair}.fq.gz"
+
+  "CWarUga00052":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/1335/FP100002592BL_L01_49_{Pair}.fq.gz"
+
+  "CWarUga00053":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/1766/FP100002596BL_L01_41_{Pair}.fq.gz"
+
+  "CWarUga00054":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/225/FP100002592BL_L01_51_{Pair}.fq.gz"
+
+  "CWarUga00055":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/227/FP100002596BL_L01_3_{Pair}.fq.gz"
+
+  "CWarUga00056":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/229/FP100002592BL_L01_114_{Pair}.fq.gz"
+
+  "CWarUga00057":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/230/FP100002592BL_L01_30_{Pair}.fq.gz"
+
+  "CWarUga00058":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/409/FP100002585BL_L01_55_{Pair}.fq.gz"
+
+  "CWarUga00059":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/410/FP100002596BL_L01_42_{Pair}.fq.gz"
+
+  "CWarUga00060":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/440/FP100002585BL_L01_116_{Pair}.fq.gz"
+
+  "DWarxxx00116":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2052/FP100002590BL_L01_4_{Pair}.fq.gz"
+
+  "DWarxxx00117":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2053/FP100002593BL_L01_103_{Pair}.fq.gz"
+
+  "DWarxxx00118":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2056/FP100002593BL_L01_25_{Pair}.fq.gz"
+
+  "DWarxxx00119":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2057/FP100002748BR_L01_101_{Pair}.fq.gz"
+
+  "DWarxxx00120":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2058/FP100002593BL_L01_128_{Pair}.fq.gz"
+
+  "DWarxxx00121":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2060/FP100002590BL_L01_15_{Pair}.fq.gz"
+
+  "DWarxxx00122":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2061_1/FP100002593BL_L01_127_{Pair}.fq.gz"
+
+  "DWarxxx00123":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2061_2/FP100002590BL_L01_100_{Pair}.fq.gz"
+
+  "DWarxxx00124":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2062/FP100002593BL_L01_122_{Pair}.fq.gz"
+
+  "DWarxxx00125":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2063/FP100002590BL_L01_42_{Pair}.fq.gz"
+
+  "DWarxxx00126":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2064/FP100002593BL_L01_124_{Pair}.fq.gz"
+
+  "DWarxxx00127":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2069_1/FP100002593BL_L01_126_{Pair}.fq.gz"
+
+  "DWarxxx00128":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2070/FP100002590BL_L01_3_{Pair}.fq.gz"
+
+  "DWarxxx00129":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2071/FP100002590BL_L01_43_{Pair}.fq.gz"
+
+  "DWarxxx00130":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/2073/FP100002590BL_L01_41_{Pair}.fq.gz"
+
+  "DWarxxx00131":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/2054/FP100002590BL_L01_116_{Pair}.fq.gz"
+
+  "DWarxxx00132":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/2055/FP100002592BL_L01_50_{Pair}.fq.gz"
+
+  "DWarxxx00133":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/2059/FP100002592BL_L01_33_{Pair}.fq.gz"
+
+  "DWarxxx00134":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/2065/FP100002590BL_L01_52_{Pair}.fq.gz"
+
+  "DWarxxx00135":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/2069_2/FP100002592BL_L01_32_{Pair}.fq.gz"
+
+  "DWarxxx00136":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/2072/FP100002592BL_L01_36_{Pair}.fq.gz"
+
+  "GForUga00151":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/1875/FP100002593BL_L01_26_{Pair}.fq.gz"
+
+  "GForUga00152":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/244/FP100002590BL_L01_16_{Pair}.fq.gz"
+
+  "GForUga00153":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/402/FP100002590BL_L01_14_{Pair}.fq.gz"
+
+  "GForUga00154":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/403/FP100002593BL_L01_121_{Pair}.fq.gz"
+
+  "GForUga00155":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/1756/FP100002592BL_L01_34_{Pair}.fq.gz"
+
+  "GForUga00156":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/235/FP100002585BL_L01_56_{Pair}.fq.gz"
+
+  "GForUga00157":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/429/FP100002592BL_L01_38_{Pair}.fq.gz"
+
+  "xxxxEth00162":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/CrypticPig_M404953/FP100002592BL_L01_2_{Pair}.fq.gz"
+
+  "xxxxEth00163":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/ID4AFALO_1/FP100002592BL_L01_3_{Pair}.fq.gz"
+
+  "xxxxEth00164":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/ID4AFALO_2/FP100002592BL_L01_1_{Pair}.fq.gz"
+
+  "RRivDrc00165":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk1/Elements/1865/FP100002593BL_L01_102_{Pair}.fq.gz"
+
+  "RRivDrc00166":
+    "Library1":
+      Lane1: "rawfastq/jbod1/seqAfrica/raw/nextomixs2021_aug2/disk2/Elements1/1863/FP100002590BL_L01_55_{Pair}.fq.gz"
+
+
+InhouseIllumina:
+  Options:
+    AdapterRemoval:
+       --adapter1: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+       --adapter2: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+  "BPigMad00006":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/C1/FCHLLYNDSXX_L3_wHAXPI110804-171_{Pair}.fq.gz"
+
+  "BPigMad00007":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/C2/FCHLLYNDSXX_L3_wHAXPI110805-172_{Pair}.fq.gz"
+
+  "BPigMad00008":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/C3/FCHLLYNDSXX_L3_wHAXPI110806-8_{Pair}.fq.gz"
+
+  "BPigMad00009":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/E5/FCHLLYNDSXX_L3_wHAXPI110809-12_{Pair}.fq.gz"
+
+  "BPigMad00010":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W15/FCHLLYNDSXX_L3_wHAXPI110777-100_{Pair}.fq.gz"
+
+  "BPigMad00011":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W17/FCHLLYNDSXX_L3_wHAXPI110778-101_{Pair}.fq.gz"
+
+  "BPigMad00012":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W20/FCHLLYNDSXX_L3_wHAXPI110779-102_{Pair}.fq.gz"
+
+  "BPigMad00013":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W21/FCHLLYNDSXX_L3_wHAXPI110780-103_{Pair}.fq.gz"
+
+  "BPigMad00014":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W24/FCHLLYNDSXX_L3_wHAXPI110781-108_{Pair}.fq.gz"
+
+  "BPigMad00015":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W25/FCHLLYNDSXX_L3_wHAXPI110782-109_{Pair}.fq.gz"
+
+  "BPigMad00016":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W26/FCHLLYNDSXX_L3_wHAXPI110783-110_{Pair}.fq.gz"
+
+  "BPigMad00017":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W27/FCHLLYNDSXX_L3_wHAXPI110784-112_{Pair}.fq.gz"
+
+  "BPigMad00018":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W40/FCHLLYNDSXX_L3_wHAXPI110785-114_{Pair}.fq.gz"
+
+  "BPigMad00019":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W41/FCHLLYNDSXX_L3_wHAXPI110786-127_{Pair}.fq.gz"
+
+  "BPigMad00020":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W42/FCHLLYNDSXX_L3_wHAXPI110787-129_{Pair}.fq.gz"
+
+  "BPigMad00021":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W44/FCHLLYNDSXX_L3_wHAXPI110788-131_{Pair}.fq.gz"
+
+  "BPigMad00022":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W45/FCHLLYNDSXX_L3_wHAXPI110789-132_{Pair}.fq.gz"
+
+  "BPigMad00023":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W46/FCHLLYNDSXX_L3_wHAXPI110790-133_{Pair}.fq.gz"
+
+  "BPigMad00024":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W47/FCHLLYNDSXX_L3_wHAXPI110791-134_{Pair}.fq.gz"
+
+  "BPigMad00025":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W48/FCHLLYNDSXX_L3_wHAXPI110792-135_{Pair}.fq.gz"
+
+  "BPigMad00026":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W49/FCHLLYNDSXX_L3_wHAXPI110793-137_{Pair}.fq.gz"
+
+  "BPigMad00027":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W50/FCHLLYNDSXX_L3_wHAXPI110794-139_{Pair}.fq.gz"
+
+  "BPigMad00028":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W51/FCHLLYNDSXX_L3_wHAXPI110795-140_{Pair}.fq.gz"
+
+  "BPigMad00029":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W52/FCHLLYNDSXX_L3_wHAXPI110796-141_{Pair}.fq.gz"
+
+  "BPigMad00030":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W53/FCHLLYNDSXX_L3_wHAXPI110797-143_{Pair}.fq.gz"
+
+  "BPigMad00031":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W54/FCHLLYNDSXX_L3_wHAXPI110798-144_{Pair}.fq.gz"
+
+  "BPigMad00032":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W55/FCHLLYNDSXX_L3_wHAXPI110799-148_{Pair}.fq.gz"
+
+  "BPigMad00033":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W57/FCHLLYNDSXX_L3_wHAXPI110800-154_{Pair}.fq.gz"
+
+  "BPigMad00034":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W60/FCHLLYNDSXX_L3_wHAXPI110801-158_{Pair}.fq.gz"
+
+  "BPigMad00035":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W61/FCHLLYNDSXX_L3_wHAXPI110802-165_{Pair}.fq.gz"
+
+  "BPigMad00036":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/162samples/Clean/W62/FCHLLYNDSXX_L3_wHAXPI110803-166_{Pair}.fq.gz"
+
+  "BPigMad00037":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/W18/W18.reads{Pair}.fastq.gz"
+
+  "BPigGha00038":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/5104/5104.reads{Pair}.fastq.gz"
+
+  "BPigTan00039":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/9012/9012.reads{Pair}.fastq.gz"
+
+  "BPigTan00040":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/3797/FCHLLWKDSXX_L3_wHAXPI110696-20_{Pair}.fq.gz"
+
+  "BPigTan00041":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/3798/FCHLLWKDSXX_L3_wHAXPI110636-23_{Pair}.fq.gz"
+
+  "BPigTan00042":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/4458/FCHLLWKDSXX_L3_wHAXPI110672-21_{Pair}.fq.gz"
+
+  "BPigTan00043":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5483/FCHLLWKDSXX_L3_wHAXPI110625-24_{Pair}.fq.gz"
+
+  "CWarZim00061":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/1257/1257.reads{Pair}.fastq.gz"
+
+  "CWarNam00062":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/2418/2418.reads{Pair}.fastq.gz"
+
+  "CWarZam00063":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/2541/2541.reads{Pair}.fastq.gz"
+
+  "CWarGha00064":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/7155/7155.reads{Pair}.fastq.gz"
+
+  "CWarTan00065":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/8627/8627.reads{Pair}.fastq.gz"
+
+  "CWarKen00066":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/29samples/clean/8922/8922.reads{Pair}.fastq.gz"
+
+  "CWarNam00067":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1002/FCHLLFVDSXX_L4_wHAXPI110643-78_{Pair}.fq.gz"
+
+  "CWarNam00068":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1105/FCHLLWKDSXX_L3_wHAXPI110674-75_{Pair}.fq.gz"
+
+  "CWarNam00069":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1130/FCHLLWKDSXX_L3_wHAXPI110671-80_{Pair}.fq.gz"
+
+  "CWarZim00070":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1259/FCHLLWKDSXX_L2_wHAXPI110667-103_{Pair}.fq.gz"
+
+  "CWarZim00071":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1261/FCHLLWKDSXX_L2_wHAXPI110577-108_{Pair}.fq.gz"
+
+  "CWarZim00072":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1262/FCHLLWKDSXX_L2_wHAXPI110664-109_{Pair}.fq.gz"
+
+  "CWarZim00073":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/1264/FCHLLWKDSXX_L2_wHAXPI110618-110_{Pair}.fq.gz"
+
+  "CWarNam00074":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/2660/FCHLLWKDSXX_L2_wHAXPI110720-81_{Pair}.fq.gz"
+
+  "CWarTan00075":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/3223/FCHLLWKDSXX_L2_wHAXPI110714-82_{Pair}.fq.gz"
+
+  "CWarTan00076":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/3224/FCHLLWKDSXX_L2_wHAXPI110579-83_{Pair}.fq.gz"
+
+  "CWarTan00077":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/3809/FCHLLWKDSXX_L2_wHAXPI110719-96_{Pair}.fq.gz"
+
+  "CWarTan00078":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/4466/FCHLLWKDSXX_L2_wHAXPI110722-95_{Pair}.fq.gz"
+
+  "CWarTan00079":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5221/FCHLLWKDSXX_L2_wHAXPI110608-84_{Pair}.fq.gz"
+
+  "CWarTan00080":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5222/FCHLLWKDSXX_L2_wHAXPI110681-85_{Pair}.fq.gz"
+
+  "CWarTan00081":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5706/FCHLLWKDSXX_L2_wHAXPI110631-88_{Pair}.fq.gz"
+
+  "CWarTan00082":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5707/FCHLLWKDSXX_L2_wHAXPI110641-89_{Pair}.fq.gz"
+
+  "CWarTan00083":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5708/FCHLLWKDSXX_L2_wHAXPI110694-90_{Pair}.fq.gz"
+
+  "CWarTan00084":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5709/FCHLLWKDSXX_L2_wHAXPI110673-92_{Pair}.fq.gz"
+
+  "CWarTan00085":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/5710/FCHLLWKDSXX_L2_wHAXPI110712-93_{Pair}.fq.gz"
+
+  "CWarZim00086":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/579/FCHLLWKDSXX_L2_wHAXPI110640-100_{Pair}.fq.gz"
+
+  "CWarZim00087":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/580/FCHLLWKDSXX_L2_wHAXPI110693-101_{Pair}.fq.gz"
+
+  "CWarZim00088":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/581/FCHLLWKDSXX_L2_wHAXPI110578-102_{Pair}.fq.gz"
+
+  "CWarGha00089":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/6272/FCHLLWKDSXX_L3_wHAXPI110613-40_{Pair}.fq.gz"
+
+  "CWarGha00090":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/6273/FCHLLWKDSXX_L3_wHAXPI110567-51_{Pair}.fq.gz"
+
+  "CWarGha00091":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/6274/FCHLLWKDSXX_L3_wHAXPI110588-41_{Pair}.fq.gz"
+
+  "CWarGha00092":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/6280/FCHLLWKDSXX_L3_wHAXPI110603-52_{Pair}.fq.gz"
+
+  "CWarGha00093":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/6436/FCHLLWKDSXX_L3_wHAXPI110582-36_{Pair}.fq.gz"
+
+  "CWarGha00094":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7144/FCHLLWKDSXX_L3_wHAXPI110596-54_{Pair}.fq.gz"
+
+  "CWarGha00095":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7146/FCHLLWKDSXX_L3_wHAXPI110715-53_{Pair}.fq.gz"
+
+  "CWarGha00096":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7147/FCHLLWKDSXX_L3_wHAXPI110707-30_{Pair}.fq.gz"
+
+  "CWarGha00097":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7151/FCHLLWKDSXX_L3_wHAXPI110703-33_{Pair}.fq.gz"
+
+  "CWarGha00098":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7152/FCHLLWKDSXX_L3_wHAXPI110691-34_{Pair}.fq.gz"
+
+  "CWarGha00099":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7156/FCHLLWKDSXX_L3_wHAXPI110695-45_{Pair}.fq.gz"
+
+  "CWarGha00100":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7160/FCHLLWKDSXX_L3_wHAXPI110635-56_{Pair}.fq.gz"
+
+  "CWarGha00101":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7161/FCHLLWKDSXX_L3_wHAXPI110665-57_{Pair}.fq.gz"
+
+  "CWarGha00102":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7162/FCHLLWKDSXX_L3_wHAXPI110633-58_{Pair}.fq.gz"
+
+  "CWarGha00103":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7163/FCHLLWKDSXX_L3_wHAXPI110668-46_{Pair}.fq.gz"
+
+  "CWarNam00104":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/7966/FCHLLWKDSXX_L3_wHAXPI110619-76_{Pair}.fq.gz"
+
+  "CWarKen00105":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8622/FCHLLWKDSXX_L3_wHAXPI110595-63_{Pair}.fq.gz"
+
+  "CWarKen00106":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8623/FCHLLWKDSXX_L3_wHAXPI110682-66_{Pair}.fq.gz"
+
+  "CWarTan00107":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8628/FCHLLWKDSXX_L2_wHAXPI110561-94_{Pair}.fq.gz"
+
+  "CWarKen00108":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8928/FCHLLWKDSXX_L3_wHAXPI110718-74_{Pair}.fq.gz"
+
+  "CWarKen00109":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8929/FCHLLWKDSXX_L3_wHAXPI110622-62_{Pair}.fq.gz"
+
+  "CWarKen00110":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8931/FCHLLWKDSXX_L3_wHAXPI110689-73_{Pair}.fq.gz"
+
+  "CWarKen00111":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8932/FCHLLWKDSXX_L3_wHAXPI110677-61_{Pair}.fq.gz"
+
+  "CWarKen00112":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8943/FCHLLWKDSXX_L3_wHAXPI110655-68_{Pair}.fq.gz"
+
+  "CWarKen00113":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8950/FCHLLWKDSXX_L3_wHAXPI110612-70_{Pair}.fq.gz"
+
+  "CWarKen00114":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/9124/FCHLLWKDSXX_L3_wHAXPI110623-60_{Pair}.fq.gz"
+
+  "CWarNam00115":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/931/FCHLLFVDSXX_L4_wHAXPI110660-77_{Pair}.fq.gz"
+
+  "DWarIve00137":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1375/1_RawData/1375_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00138":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1001/1_RawData/1001_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00139":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1002/1_RawData/1002_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00140":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1003/1_RawData/1003_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00141":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1005/1_RawData/1005_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00142":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1007/1_RawData/1007_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00143":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1009/1_RawData/1009_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00144":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1010/1_RawData/1010_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00145":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1011/1_RawData/1011_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00146":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/895/1_RawData/895_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00147":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/980/1_RawData/980_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00148":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/981/1_RawData/981_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00149":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/984/1_RawData/984_PE400_R{Pair}.fq.gz"
+
+  "DPigNig00150":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/988/1_RawData/988_PE400_R{Pair}.fq.gz"
+
+  "GForUga00158":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/8626/FCHLLWKDSXX_L3_wHAXPI110657-26_{Pair}.fq.gz"
+
+  "GForUga00159":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/9126/FCHLLWKDSXX_L3_wHAXPI110624-27_{Pair}.fq.gz"
+
+  "GForUga00160":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2019/University_of_Copenhagen_data/79samplse/Clean/9127/FCHLLWKDSXX_L3_wHAXPI110678-29_{Pair}.fq.gz"
+
+  "GForGui00161":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1937/1_RawData/1937_PE400_R{Pair}.fq.gz"
+
+  "RRivCam00167":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1/1_RawData/1_PE400_R{Pair}.fq.gz"
+
+  "RRivCam00168":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1038/1_RawData/1038_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00169":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1110/1_RawData/1110_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00170":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1117/1_RawData/1117_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00171":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1118/1_RawData/1118_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00172":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1125/1_RawData/1125_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00173":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1136/1_RawData/1136_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00174":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1144/1_RawData/1144_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00175":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1146/1_RawData/1146_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00176":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1164/1_RawData/1164_PE400_R{Pair}.fq.gz"
+
+  "RRivEqu00177":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1187/1_RawData/1187_PE400_R{Pair}.fq.gz"
+
+  "RRivGab00178":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1605/1_RawData/1605_PE400_R{Pair}.fq.gz"
+
+  "RRivCam00179":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/173/1_RawData/173_PE400_R{Pair}.fq.gz"
+
+  "RRivCam00180":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/1773/1_RawData/1773_PE400_R{Pair}.fq.gz"
+
+  "RRivCam00181":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/22/1_RawData/22_PE400_R{Pair}.fq.gz"
+
+  "RRivCam00182":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/2691/1_RawData/2691_PE400_R{Pair}.fq.gz"
+
+  "RRivDrc00183":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/3088/1_RawData/3088_PE400_R{Pair}.fq.gz"
+
+  "RRivDrc00184":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/3108/1_RawData/3108_PE400_R{Pair}.fq.gz"
+
+  "RRivDrc00185":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/3129/1_RawData/3129_PE400_R{Pair}.fq.gz"
+
+  "RRivTog00186":
+    "Library1":
+      Lane1: "rawfastq/steveData/africaFQ2020/959/1_RawData/959_PE400_R{Pair}.fq.gz"
+
+
+NCBISamples:
+  Options:
+    AdapterRemoval:
+       --adapter1: AGATCGGAAGAGCACACGTCTGAACTCCAGTCA
+       --adapter2: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+
+
+  "BBabxxx00187":
+    "Library1":
+      "ERR2984475": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA5150766/ERR2984475/ERR2984475_{Pair}.fastq.gz"
+
+  "PHogxxx00189":
+    "Library1":
+      "ERR2984767": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA5151077/ERR2984767/ERR2984767_{Pair}.fastq.gz"
+  "WBoaxxx00191":
+    "Library1":
+      "ERR3632969": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141247/ERR3632969/ERR3632969_{Pair}.fastq.gz"
+      "ERR3632970": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141247/ERR3632970/ERR3632970_{Pair}.fastq.gz"
+
+  "WBoaxxx00192":
+    "Library1":
+      "ERR3632971": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141248/ERR3632971/ERR3632971_{Pair}.fastq.gz"
+      "ERR3632972": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141248/ERR3632972/ERR3632972_{Pair}.fastq.gz"
+
+  "VWarxxx00194":
+    "Library1":
+      "ERR874001": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375684/ERR874001/ERR874001_{Pair}.fastq.gz"
+      "ERR874002": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375684/ERR874002/ERR874002_{Pair}.fastq.gz"
+      "ERR874003": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375684/ERR874003/ERR874003_{Pair}.fastq.gz"
+      "ERR874004": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375684/ERR874004/ERR874004_{Pair}.fastq.gz"
+      "ERR874005": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375684/ERR874005/ERR874005_{Pair}.fastq.gz"
+      "ERR874006": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375684/ERR874006/ERR874006_{Pair}.fastq.gz"
+
+  "VWarxxx00195":
+    "Library1":
+      "ERR874007": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375685/ERR874007/ERR874007_{Pair}.fastq.gz"
+      "ERR874008": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375685/ERR874008/ERR874008_{Pair}.fastq.gz"
+
+  "VWarxxx00196":
+    "Library1":
+      "ERR874009": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874009/ERR874009_{Pair}.fastq.gz"
+      "ERR874010": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874010/ERR874010_{Pair}.fastq.gz"
+      "ERR874011": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874011/ERR874011_{Pair}.fastq.gz"
+      "ERR874012": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874012/ERR874012_{Pair}.fastq.gz"
+      "ERR874013": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874013/ERR874013_{Pair}.fastq.gz"
+      "ERR874014": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874014/ERR874014_{Pair}.fastq.gz"
+      "ERR874015": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874015/ERR874015_{Pair}.fastq.gz"
+      "ERR874016": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA3375686/ERR874016/ERR874016_{Pair}.fastq.gz"
+
+  "BBeaxxx00197":
+    "Library1":
+      "ERR3632917": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141238/ERR3632917/ERR3632917_{Pair}.fastq.gz"
+      "ERR3632918": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141238/ERR3632918/ERR3632918_{Pair}.fastq.gz"
+      "ERR3632919": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141238/ERR3632919/ERR3632919_{Pair}.fastq.gz"
+
+  "BBeaxxx00198":
+    "Library1":
+      "ERR3632920": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141239/ERR3632920/ERR3632920_{Pair}.fastq.gz"
+      "ERR3632921": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141239/ERR3632921/ERR3632921_{Pair}.fastq.gz"
+
+  "BBeaxxx00199":
+    "Library1":
+      "ERR3632922": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141240/ERR3632922/ERR3632922_{Pair}.fastq.gz"
+      "ERR3632923": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141240/ERR3632923/ERR3632923_{Pair}.fastq.gz"
+      "ERR3632924": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141240/ERR3632924/ERR3632924_{Pair}.fastq.gz"
+
+  "CWarxxx00201":
+    "Library1":
+      "ERR3632944": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141244/ERR3632944/ERR3632944_{Pair}.fastq.gz"
+      "ERR3632945": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141244/ERR3632945/ERR3632945_{Pair}.fastq.gz"
+      "ERR3632946": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141244/ERR3632946/ERR3632946_{Pair}.fastq.gz"
+
+  "CWarxxx00202":
+    "Library1":
+      "ERR173210":
+        Single: "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA1557393/ERR173210/ERR173210.fastq.gz"
+        Paired: "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA1557393/ERR173210/ERR173210_{Pair}.fastq.gz"
+
+  "JWarxxx00203":
+    "Library1":
+      "ERR3632947": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141245/ERR3632947/ERR3632947_{Pair}.fastq.gz"
+      "ERR3632948": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141245/ERR3632948/ERR3632948_{Pair}.fastq.gz"
+      "ERR3632949": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141245/ERR3632949/ERR3632949_{Pair}.fastq.gz"
+
+  "CWarZoo00205":
+    "Library1":
+      "ERR173203":
+        Single: "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA1557418/ERR173203/ERR173203.fastq.gz"
+        Paired: "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA1557418/ERR173203/ERR173203_{Pair}.fastq.gz"
+
+  "CWarxxx00206":
+    "Library1":
+      "ERR3632906": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141235/ERR3632906/ERR3632906_{Pair}.fastq.gz"
+      "ERR3632907": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141235/ERR3632907/ERR3632907_{Pair}.fastq.gz"
+      "ERR3632908": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141235/ERR3632908/ERR3632908_{Pair}.fastq.gz"
+      "ERR3632909": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141235/ERR3632909/ERR3632909_{Pair}.fastq.gz"
+      "ERR3632910": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141235/ERR3632910/ERR3632910_{Pair}.fastq.gz"
+
+  "BPigZoo00207":
+    "Library1":
+      "ERR3632911": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141236/ERR3632911/ERR3632911_{Pair}.fastq.gz"
+      "ERR3632912": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141236/ERR3632912/ERR3632912_{Pair}.fastq.gz"
+      "ERR3632913": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141236/ERR3632913/ERR3632913_{Pair}.fastq.gz"
+
+  "RRivZoo00208":
+    "Library1":
+      "ERR3632914": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141237/ERR3632914/ERR3632914_{Pair}.fastq.gz"
+      "ERR3632915": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141237/ERR3632915/ERR3632915_{Pair}.fastq.gz"
+      "ERR3632916": "rawfastq/jbod1/genis/pigs/download/pigs/SAMEA6141237/ERR3632916/ERR3632916_{Pair}.fastq.gz"

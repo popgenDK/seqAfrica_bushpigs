@@ -1,0 +1,144 @@
+bams:
+  close:
+    BPigRSA49002t0: batch_2/BPigRSA49002t0.SusScrofa.bam
+    BPigRSA49002t1: batch_2/BPigRSA49002t1.SusScrofa.bam
+    BPigRSA49002t2: batch_2/BPigRSA49002t2.SusScrofa.bam
+    BPigZim49001t0: batch_2/BPigZim49001t0.SusScrofa.bam
+    BPigZim49001t1: batch_2/BPigZim49001t1.SusScrofa.bam
+    BPigZim49001t2: batch_2/BPigZim49001t2.SusScrofa.bam
+    RRivNIG46518: batch_2/RRivNIG46518.SusScrofa.bam
+    RRivNIG46529: batch_2/RRivNIG46529.SusScrofa.bam
+  distant:
+    BPigRSA49002t0: batch_2/BPigRSA49002t0.Warthog.bam
+    BPigRSA49002t1: batch_2/BPigRSA49002t1.Warthog.bam
+    BPigRSA49002t2: batch_2/BPigRSA49002t2.Warthog.bam
+    BPigZim49001t0: batch_2/BPigZim49001t0.Warthog.bam
+    BPigZim49001t1: batch_2/BPigZim49001t1.Warthog.bam
+    BPigZim49001t2: batch_2/BPigZim49001t2.Warthog.bam
+    RRivNIG46518: batch_2/RRivNIG46518.Warthog.bam
+    RRivNIG46529: batch_2/RRivNIG46529.Warthog.bam
+blocksize: 10000
+fastq:
+  1:
+    BPigRSA49002t0:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S2_R1_001.fastq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S3_R1_001.fastq.gz
+    BPigRSA49002t1:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S2_R1_001.trim5p1bp.fastq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S3_R1_001.trim5p1bp.fastq.gz
+    BPigRSA49002t2:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S2_R1_001.trim5p2bp.fastq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S3_R1_001.trim5p2bp.fastq.gz
+    BPigZim49001t0:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119267_BushPig_200749001/LIB119267_S1_R1_001.fastq.gz
+    BPigZim49001t1:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119267_BushPig_200749001/LIB119267_S1_R1_001.trim5p1bp.fastq.gz
+    BPigZim49001t2:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119267_BushPig_200749001/LIB119267_S1_R1_001.trim5p2bp.fastq.gz
+    RRivNIG46518:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363276/CRR363276_1.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363277/CRR363277_1.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363278/CRR363278_1.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363279/CRR363279_1.fq.gz
+    RRivNIG46529:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA002456/CRR125443/CRR125443_1.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA002456/CRR125444/CRR125444_1.fq.gz
+  2:
+    BPigRSA49002t0:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S2_R2_001.fastq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S3_R2_001.fastq.gz
+    BPigRSA49002t1:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S2_R2_001.trim5p1bp.fastq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S3_R2_001.trim5p1bp.fastq.gz
+    BPigRSA49002t2:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S2_R2_001.trim5p2bp.fastq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119268_BushPig_200749002/LIB119268_S3_R2_001.trim5p2bp.fastq.gz
+    BPigZim49001t0:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119267_BushPig_200749001/LIB119267_S1_R2_001.fastq.gz
+    BPigZim49001t1:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119267_BushPig_200749001/LIB119267_S1_R2_001.trim5p1bp.fastq.gz
+    BPigZim49001t2:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/erda/BushPig/LIB119267_BushPig_200749001/LIB119267_S1_R2_001.trim5p2bp.fastq.gz
+    RRivNIG46518:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363276/CRR363276_2.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363277/CRR363277_2.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363278/CRR363278_2.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA005799/CRR363279/CRR363279_2.fq.gz
+    RRivNIG46529:
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA002456/CRR125443/CRR125443_2.fq.gz
+    - /maps/projects/seqafrica/people/zlc187/mapping/pigs/rawfastq/download.cncb.ac.cn/gsa3/CRA002456/CRR125444/CRR125444_2.fq.gz
+idxstats:
+  close:
+    BPigRSA49002t0: batch_2/BPigRSA49002t0.SusScrofa.idxstats.txt
+    BPigRSA49002t1: batch_2/BPigRSA49002t1.SusScrofa.idxstats.txt
+    BPigRSA49002t2: batch_2/BPigRSA49002t2.SusScrofa.idxstats.txt
+    BPigZim49001t0: batch_2/BPigZim49001t0.SusScrofa.idxstats.txt
+    BPigZim49001t1: batch_2/BPigZim49001t1.SusScrofa.idxstats.txt
+    BPigZim49001t2: batch_2/BPigZim49001t2.SusScrofa.idxstats.txt
+    RRivNIG46518: batch_2/RRivNIG46518.SusScrofa.idxstats.txt
+    RRivNIG46529: batch_2/RRivNIG46529.SusScrofa.idxstats.txt
+  distant:
+    BPigRSA49002t0: batch_2/BPigRSA49002t0.Warthog.idxstats.txt
+    BPigRSA49002t1: batch_2/BPigRSA49002t1.Warthog.idxstats.txt
+    BPigRSA49002t2: batch_2/BPigRSA49002t2.Warthog.idxstats.txt
+    BPigZim49001t0: batch_2/BPigZim49001t0.Warthog.idxstats.txt
+    BPigZim49001t1: batch_2/BPigZim49001t1.Warthog.idxstats.txt
+    BPigZim49001t2: batch_2/BPigZim49001t2.Warthog.idxstats.txt
+    RRivNIG46518: batch_2/RRivNIG46518.Warthog.idxstats.txt
+    RRivNIG46529: batch_2/RRivNIG46529.Warthog.idxstats.txt
+jsons:
+- batch_2/BPigRSA49002t0.SusScrofa.json
+- batch_2/BPigRSA49002t0.Warthog.json
+- batch_2/BPigRSA49002t1.SusScrofa.json
+- batch_2/BPigRSA49002t1.Warthog.json
+- batch_2/BPigRSA49002t2.SusScrofa.json
+- batch_2/BPigRSA49002t2.Warthog.json
+- batch_2/BPigZim49001t0.SusScrofa.json
+- batch_2/BPigZim49001t0.Warthog.json
+- batch_2/BPigZim49001t1.SusScrofa.json
+- batch_2/BPigZim49001t1.Warthog.json
+- batch_2/BPigZim49001t2.SusScrofa.json
+- batch_2/BPigZim49001t2.Warthog.json
+- batch_2/RRivNIG46518.SusScrofa.json
+- batch_2/RRivNIG46518.Warthog.json
+- batch_2/RRivNIG46529.SusScrofa.json
+- batch_2/RRivNIG46529.Warthog.json
+minQ: 30
+minmapQ: 30
+nblocks: 100
+outmain: batch_2.qc
+perfect_bam: batch_2/RRivNIG46518.Warthog.bam
+refs:
+  close: /maps/projects/seqafrica/people/zlc187/mapping/pigs/genomes/SusScrofa11_1.fasta
+  close_name: SusScrofa
+  distant: /maps/projects/seqafrica/people/zlc187/mapping/pigs/genomes/Warthog.fasta
+  distant_name: Warthog
+samples:
+- BPigZim49001t0
+- BPigZim49001t1
+- BPigZim49001t2
+- BPigRSA49002t0
+- BPigRSA49002t1
+- BPigRSA49002t2
+- RRivNIG46518
+- RRivNIG46529
+script_dir: /maps/projects/seqafrica/people/zlc187/qc/workflow/scripts
+stats:
+  close:
+    BPigRSA49002t0: batch_2/BPigRSA49002t0.SusScrofa.stats.txt
+    BPigRSA49002t1: batch_2/BPigRSA49002t1.SusScrofa.stats.txt
+    BPigRSA49002t2: batch_2/BPigRSA49002t2.SusScrofa.stats.txt
+    BPigZim49001t0: batch_2/BPigZim49001t0.SusScrofa.stats.txt
+    BPigZim49001t1: batch_2/BPigZim49001t1.SusScrofa.stats.txt
+    BPigZim49001t2: batch_2/BPigZim49001t2.SusScrofa.stats.txt
+    RRivNIG46518: batch_2/RRivNIG46518.SusScrofa.stats.txt
+    RRivNIG46529: batch_2/RRivNIG46529.SusScrofa.stats.txt
+  distant:
+    BPigRSA49002t0: batch_2/BPigRSA49002t0.Warthog.stats.txt
+    BPigRSA49002t1: batch_2/BPigRSA49002t1.Warthog.stats.txt
+    BPigRSA49002t2: batch_2/BPigRSA49002t2.Warthog.stats.txt
+    BPigZim49001t0: batch_2/BPigZim49001t0.Warthog.stats.txt
+    BPigZim49001t1: batch_2/BPigZim49001t1.Warthog.stats.txt
+    BPigZim49001t2: batch_2/BPigZim49001t2.Warthog.stats.txt
+    RRivNIG46518: batch_2/RRivNIG46518.Warthog.stats.txt
+    RRivNIG46529: batch_2/RRivNIG46529.Warthog.stats.txt
